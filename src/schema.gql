@@ -1,0 +1,49 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Pet {
+  id: Int!
+  name: String!
+  type: String
+}
+
+type Owner {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Query {
+  holaMundo: String!
+  getNumeroAleatorio: Float!
+
+  """Genera un entero aleatorio con el argumento hasta (por defecto 5)"""
+  numeroAleatorioHasta(hasta: Int): Int!
+  pets: [Pet!]!
+  getPet(id: Int!): Pet!
+  owners: [Owner!]!
+  owner(id: Int!): Owner!
+}
+
+type Mutation {
+  creratePet(createPetInput: CreatePetInput!): Pet!
+  createOwner(createOwnerInput: CreateOwnerInput!): Owner!
+  updateOwner(updateOwnerInput: UpdateOwnerInput!): Owner!
+  removeOwner(id: Int!): Owner!
+}
+
+input CreatePetInput {
+  name: String!
+  type: String
+}
+
+input CreateOwnerInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateOwnerInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
