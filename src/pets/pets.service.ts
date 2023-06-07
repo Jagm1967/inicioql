@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { Pet } from './pets.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -8,7 +8,8 @@ import { Owner } from 'src/owners/entities/owner.entity';
 
 @Injectable()
 export class PetsService {
-  constructor(@InjectRepository(Pet) private petsRepository: Repository<Pet>, private ownerService:OwnersService) {}
+  constructor(@InjectRepository(Pet) private petsRepository: Repository<Pet>,
+  @Inject(forwardRef(() => OwnersService)) private ownerService:OwnersService) {}
 
   createPet(createPetInput: CreatePetInput): Promise<Pet> {
     const newPet = this.petsRepository.create(createPetInput);
@@ -21,6 +22,10 @@ export class PetsService {
     pet.name = 'Amigo';
     return [pet]; */
     return this.petsRepository.find();
+  }
+
+  async findOwner(ownerId:number):Promise<Pet[]>{
+    return this.petsRepository.find({where:{ownerId:ownerId}});
   }
 
   async getOwner(ownerId:number):Promise<Owner>{
